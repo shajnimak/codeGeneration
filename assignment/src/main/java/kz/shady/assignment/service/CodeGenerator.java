@@ -25,8 +25,7 @@ public class CodeGenerator {
     public String generateCode(String currentCode) {
         char[] codeArr = currentCode.toCharArray();
         int lastIndex = codeArr.length - 1;
-        char firstChar = codeArr[0];
-        if(firstChar == 'z') {
+        if (isLimited(codeArr)) {
             return new String(limitChecker(codeArr));
         }
         while (lastIndex >= 0) {
@@ -44,6 +43,26 @@ public class CodeGenerator {
         }
         return new String(codeArr);
     }
+
+    private boolean isLimited(char[] codeArr) {
+        int countZ = 0;
+        int count9 = 0;
+        for (char c : codeArr) {
+            if (c == 'z') {
+                countZ++;
+            }
+        }
+        for (char c : codeArr) {
+            if (c == '9') {
+                count9++;
+            }
+        }
+        if ((countZ == count9 && countZ == codeArr.length/2)) {
+            return true;
+        }
+        return false;
+    }
+
 
     private char[] limitChecker(char[] codeArr){
         int formulatedLength = codeArr.length + 2;
